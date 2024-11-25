@@ -12,7 +12,7 @@ void poblarTablero(char tablero[7][7], char simboloPared, char simboloSoldado, c
 void preguntarRotacion(int* rotacion);
 void preguntarSimbolo(char * simbolo, char* nombre);
 void preguntarPrimerJugador(char * turnoJugador, char simboloSoldado,char simboloOficial);
-
+void contarFichas(char tablero[7][7], char simboloOficial, char simboloSoldado, int* cantidadOficiales, int* cantidadSoldados);
 
 
 int main(void)
@@ -27,6 +27,13 @@ int main(void)
     char simboloSoldado = 'X';
     char simboloOficial = 'O';
 
+    bool jugando = true;
+
+    int cantidadOficiales = 0;
+    int cantidadSoldados = 0;
+
+
+
     char turnoJugador = simboloSoldado;
 
     int rotacion = 0;
@@ -39,22 +46,10 @@ int main(void)
 
     poblarTablero(tablero, simboloPared, simboloSoldado, simboloVacio, simboloOficial);
 
-
-
-
-
-
-
-
-
-    bool jugando = true;
-    int oficialJugado = 1;
-
     while (jugando) {
 
         imprimirTablero(tablero);
 
-        scanf("%i", &oficialJugado);
     }
 
     return 0;
@@ -224,12 +219,15 @@ void imprimirTablero(char tablero[7][7]) {
 }
 
 
+
+
 void preguntarSimbolo(char * simbolo, char* nombre) {
     printf("Ingrese el caracter que quiere usar para el %s:\n", nombre);
     scanf("%c", simbolo);
 }
 
 void preguntarPrimerJugador(char * turnoJugador, char simboloSoldado,char simboloOficial) {
+
     printf("Desea elegir quien empieza la partida?  S / N \n");
     char respuesta = 'N';
 
@@ -253,3 +251,22 @@ void preguntarPrimerJugador(char * turnoJugador, char simboloSoldado,char simbol
 
     }
 }
+
+    void contarFichas(char tablero[7][7], char simboloOficial, char simboloSoldado, int* cantidadOficiales, int* cantidadSoldados){
+        for (int i = 0; i < 7; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                char simbolo = tablero[i][j];
+
+                if (simbolo == simboloOficial){
+                    *(cantidadOficiales)++;
+                }
+                if (simbolo == simboloSoldado){
+                    *(cantidadSoldados)++;
+                }
+            }
+            
+        }
+        
+    }
