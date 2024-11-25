@@ -1,0 +1,18 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/lit/Documents/TP-Orga-1/idea'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x1000030F0, symSize: 0x120 }
+  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x1000030F0, symSize: 0x120 }
+  - { offsetInCU: 0x103, offset: 0x103, size: 0x8, addend: 0x0, symName: _preguntarSimbolo, symObjAddr: 0x120, symBinAddr: 0x100003210, symSize: 0x50 }
+  - { offsetInCU: 0x135, offset: 0x135, size: 0x8, addend: 0x0, symName: _preguntarRotacion, symObjAddr: 0x170, symBinAddr: 0x100003260, symSize: 0x14C }
+  - { offsetInCU: 0x1AD, offset: 0x1AD, size: 0x8, addend: 0x0, symName: _preguntarPrimerJugador, symObjAddr: 0x2BC, symBinAddr: 0x1000033AC, symSize: 0x128 }
+  - { offsetInCU: 0x228, offset: 0x228, size: 0x8, addend: 0x0, symName: _poblarTablero, symObjAddr: 0x3E4, symBinAddr: 0x1000034D4, symSize: 0x2E4 }
+  - { offsetInCU: 0x39C, offset: 0x39C, size: 0x8, addend: 0x0, symName: _imprimirTablero, symObjAddr: 0x6C8, symBinAddr: 0x1000037B8, symSize: 0x19C }
+  - { offsetInCU: 0x414, offset: 0x414, size: 0x8, addend: 0x0, symName: _aBasico, symObjAddr: 0x864, symBinAddr: 0x100003954, symSize: 0x18 }
+  - { offsetInCU: 0x454, offset: 0x454, size: 0x8, addend: 0x0, symName: _deBasico, symObjAddr: 0x87C, symBinAddr: 0x10000396C, symSize: 0x18 }
+  - { offsetInCU: 0x494, offset: 0x494, size: 0x8, addend: 0x0, symName: _transponer, symObjAddr: 0x894, symBinAddr: 0x100003984, symSize: 0x188 }
+  - { offsetInCU: 0x536, offset: 0x536, size: 0x8, addend: 0x0, symName: _espejoX, symObjAddr: 0xA1C, symBinAddr: 0x100003B0C, symSize: 0x19C }
+  - { offsetInCU: 0x5D8, offset: 0x5D8, size: 0x8, addend: 0x0, symName: _darRotacion, symObjAddr: 0xBB8, symBinAddr: 0x100003CA8, symSize: 0xB0 }
+  - { offsetInCU: 0x60A, offset: 0x60A, size: 0x8, addend: 0x0, symName: _contarFichas, symObjAddr: 0xC68, symBinAddr: 0x100003D58, symSize: 0xF4 }
+...
