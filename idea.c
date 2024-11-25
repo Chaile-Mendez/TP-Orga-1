@@ -11,6 +11,11 @@ void preguntarRotacion(int *rotacion);
 void preguntarSimbolo(char *simbolo, char *nombre);
 void preguntarPrimerJugador(char *turnoJugador, char simboloSoldado, char simboloOficial);
 void contarFichas(char tablero[7][7], char simboloOficial, char simboloSoldado, int *cantidadOficiales, int *cantidadSoldados);
+void imprimirDatos(int cantidadSoldados, int cantidadOficiales, char turnoJugador);
+void preguntarPosicionAMover(char tablero[7][7], char jugadorEnTurno, int* i, int *j);
+
+
+
 
 int main(void)
 {
@@ -29,6 +34,9 @@ int main(void)
     int cantidadOficiales = 0;
     int cantidadSoldados = 0;
 
+    char ganador = '0';
+    char *mensajeFinal = "";
+
     char turnoJugador = simboloSoldado;
 
     int rotacion = 0;
@@ -41,10 +49,37 @@ int main(void)
 
     poblarTablero(tablero, simboloPared, simboloSoldado, simboloVacio, simboloOficial);
 
+
+    imprimirTablero(tablero);
+    imprimirDatos(cantidadOficiales,cantidadSoldados,turnoJugador);
+
+
     while (jugando)
     {
 
+        if (cantidadOficiales < 1 && cantidadSoldados < 9){
+            jugando = false;
+            mensajeFinal = "Ha ocurrido un empate\n";
+            break;
+        }
+        if (cantidadOficiales < 1){
+          jugando = false;
+          mensajeFinal = "No hay mas soldados vivos\n";
+          break;
+        }
+
+        if (cantidadSoldados < 9){
+            jugando = false;
+            mensajeFinal = "No hay suficientes soldados para capturar el objetivo\n";
+            break;
+        }
+
+
+
+
         imprimirTablero(tablero);
+        imprimirDatos(cantidadOficiales,cantidadSoldados,turnoJugador);
+
     }
 
     return 0;
@@ -161,6 +196,7 @@ void preguntarRotacion(int *rotacion)
 
     int rotacionesValidas[4] = {0, 90, 180, 270};
 
+
     while (intentando)
     {
         printf("Ingrese la rotacion del tablero, puede ser 0, 90, 180 o 270:\n");
@@ -246,8 +282,13 @@ void imprimirTablero(char tablero[7][7])
 
 void preguntarSimbolo(char *simbolo, char *nombre)
 {
-    printf("Ingrese el caracter que quiere usar para el %s:\n", nombre);
-    scanf("%c", simbolo);
+    printf("Desea modificar el simbolo de el %s? ingrese S o N (si o no)\n", nombre);
+    char respuesta = 'N';
+    scanf("%c", &respuesta);
+    if (respuesta == 'S'){
+        printf("Ingrese el caracter que quiere usar para el %s:\n", nombre);
+        int cantidadRespuestas = scanf("%c", simbolo);
+    }
 }
 
 void preguntarPrimerJugador(char *turnoJugador, char simboloSoldado, char simboloOficial)
@@ -298,4 +339,72 @@ void contarFichas(char tablero[7][7], char simboloOficial, char simboloSoldado, 
             }
         }
     }
+}
+
+void imprimirDatos(int cantidadSoldados, int cantidadOficiales, char turnoJugador){
+
+  printf("Es el turno del jugador con el simbolo de %c\n", turnoJugador);
+  printf("Soldados restantes: %i\n", cantidadSoldados);
+  printf("Oficiales restantes: %i\n", cantidadOficiales);
+}
+
+void preguntarPosicionAMover(char tablero[7][7], char jugadorEnTurno, int* i, int *j){
+
+  bool respuestaValida = false;
+
+  while (!respuestaValida){
+      printf("Indique la posicion X,Y de la ficha que desea mover:\n");
+
+      int i = -1;
+      int j = -1;
+
+      scanf("%i,%i", &j, &i);
+
+      if ((j >= 0 && j <7) && (i >= 0 && i < 7)){
+        char ficha = tablero[i][j];
+        if (ficha == jugadorEnTurno){
+          respuestaValida = true;
+        }else{
+          printf("Respuesta invalida\n");
+        }
+      }
+  }
+}
+
+void agregarMovimientosOficial(char tablero [7][7], int i, int j, int movimientosValidos[32], int* tope, char simboloVacio, char simboloSoldado){
+
+  int offsetY = 1;
+  int offsetX = 1;
+
+  int y = i + offsetY;
+  int x = j + offsetX;
+
+  if (y >= 0 && y < 7 && x >= 0 && x < 7){
+     char casilla = tablero[y][x];
+
+     if (casilla == simboloVacio){
+       movimientosValidos[*tope] = x;
+       *tope = *tope + 1;
+       movimientosValidos[*tope] = y;
+       *tope = *tope + 1;
+     }
+
+     if (casilla == simboloSoldado){
+       x = x + offsetX;
+       y = y + offsetY;
+       if (y >= 0 && y < 7 && x >= 0 && x < 7){
+             char casilla = tablero[y][x];
+           if (casilla == simboloVacio){
+               movimientosValidos[*tope] = x;
+               *tope = *tope + 1;
+               movimientosValidos[*tope] = y;
+               *tope = *tope + 1;
+           }
+       }
+
+     }
+
+  }
+
+
 }
