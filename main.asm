@@ -57,7 +57,7 @@ juego_loop:
 
     call switch_turno
 
-    jmp bucle_juego
+    jmp juego_loop
 
     ret
 
