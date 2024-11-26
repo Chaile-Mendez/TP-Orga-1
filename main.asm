@@ -13,6 +13,7 @@ extern turno_actual
 extern switch_turno       
 extern validar_movimiento 
 extern ejecutar_movimiento
+extern contar_jugadores
 
 section .text
 
@@ -39,7 +40,7 @@ main:
 ; bucle del juego
 juego_loop:
     call imprimir_tablero
-
+    call contar_jugadores
     ; solicitar movimiento
     call leer_movimiento
     ; validar el movimiento

@@ -9,6 +9,5 @@ nasm -f elf64 imprimir.asm -o imprimir.o
 nasm -f elf64 constantes.asm -o constantes.o
 nasm -f elf64 datos.asm -o datos.o
 nasm -f elf64 transformaciones.asm -o transformaciones.o
-
-
-ld main.o input.o validacion_movimiento.o ejecucion_movimiento.o funciones_auxiliares.o turno.o tablero.o imprimir.o constantes.o datos.o transformaciones.o -o juego -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
+nasm -f elf64 contar_jugadores.asm -o contar_jugadores.o
+ld main.o input.o validacion_movimiento.o ejecucion_movimiento.o funciones_auxiliares.o turno.o tablero.o imprimir.o constantes.o datos.o transformaciones.o contar_jugadores.o -o juego -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
