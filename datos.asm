@@ -27,6 +27,8 @@ section .data
 
     mensaje_fin_juego db '¡Felicidades! Has ganado el juego.', 10, 0
 
+    mensaje_contar_fichas db "Oficiales: %i, Soldados: %i",10,0
+
 section .bss
     ; espacio del tablero (7x7)
     tablero resb ALTO * ANCHO
@@ -43,12 +45,21 @@ section .bss
 
     turno_actual resb 1         ; 'S' para Soldados, 'O' para Oficiales
 
+    cantidad_soldados resb 1
+    cantidad_oficiales resb 1
+
 ;variables globales
 global tablero
 global aux
 global formato_numero, formato_caracter
 global menu_prompt, invalid_option, encabezado_x, encabezado_y, salto_linea
 global user_option
+global cantidad_oficiales
+global cantidad_soldados
+
+
+;varibales globales para contar_jugadores.asm
+global mensaje_contar_fichas
 
 ;variables globales para input.asm
 global inicio_fila, inicio_col
