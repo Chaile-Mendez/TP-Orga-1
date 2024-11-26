@@ -12,6 +12,9 @@ section .data
     encabezado_y      db 'y', 10, 0
     salto_linea       db 10, 0
 
+    cantidadSoldados db 0
+    cantidadOficiales db 0
+
 section .bss
     ;espacio para el tablero (7x7)
     tablero resb ALTO * ANCHO
