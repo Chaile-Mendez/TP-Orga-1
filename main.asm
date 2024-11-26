@@ -14,12 +14,15 @@ extern switch_turno
 extern validar_movimiento 
 extern ejecutar_movimiento
 extern contar_jugadores
+extern menu
 
 section .text
 
 main:
     push rbx
     push r12        
+
+    call menu
 
     call inicializar_tablero
 
