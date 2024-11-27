@@ -8,7 +8,9 @@ extern mensaje_turno_soldados, mensaje_turno_oficiales
 extern mensaje_pos_inicio_fila, mensaje_pos_inicio_col
 extern mensaje_pos_fin_fila, mensaje_pos_fin_col
 extern turno_actual, inicio_fila, inicio_col, fin_fila, fin_col
+extern guardar_partida
 
+global continuar_fin_col
 global leer_movimiento
 
 section .text
@@ -42,7 +44,10 @@ solicitar_inicio_fila:
     xor rax, rax
     call printf
 
-    call getchar                        
+    call getchar
+    ; Valido si quiero guardar la partida
+    cmp al,'g'
+    je guardar_partida                       
     ; Validar que sea un dígito entre '0' y '6'
     cmp al, '0'
     jb invalid_inicio_fila

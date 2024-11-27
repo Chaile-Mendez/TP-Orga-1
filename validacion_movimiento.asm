@@ -80,6 +80,7 @@ verificar_destino:
     jmp movimiento_invalido
 
 ; función de validación para soldados
+; función de validación para soldados
 validar_movimiento_soldado:
     ; calculo diferencia de filas y columnas
     movzx rax, byte [fin_fila]      ; rax = fila fin 
@@ -92,6 +93,48 @@ validar_movimiento_soldado:
     sub rbx, rdx                    ; rbx = fin col - col inicio
     movsx r9d, bl                   ; r9d = diferencia de columnas
 
+    ; verificar si el soldado está en posición especial (fila 4, col 0,1,5,6)
+    movzx eax, byte [inicio_fila]
+    cmp eax, 4
+    jne verificar_movimiento_normal  ; si no está en fila 4, verificar movimiento normal
+
+    movzx ebx, byte [inicio_col]
+    cmp ebx, 0
+    je verificar_movimiento_lateral
+    cmp ebx, 1
+    je verificar_movimiento_lateral
+    cmp ebx, 5
+    je verificar_movimiento_lateral
+    cmp ebx, 6
+    je verificar_movimiento_lateral
+    ; si no está en columnas 0,1,5,6, verificar movimiento normal
+    jmp verificar_movimiento_normal
+
+verificar_movimiento_lateral:
+    ; r8d = diferencia de filas
+    ; r9d = diferencia de columnas
+    cmp r8d, 0
+    jne movimiento_invalido  ; debe ser movimiento lateral (sin cambio en filas)
+
+    ; determinar si está a la izq o der comparando con medio
+    movzx eax, byte [inicio_col]
+    cmp eax, 3
+    jl movimiento_lateral_derecha
+    jg movimiento_lateral_izquierda
+
+movimiento_lateral_derecha:
+    ; desde columnas 0 y 1, movimiento hacia derecha (diferencia de cols = 1)
+    cmp r9d, 1
+    je movimiento_valido
+    jmp movimiento_invalido
+
+movimiento_lateral_izquierda:
+    ; desde columnas 5 y 6, movimiento hacia izquierda (diferencia de cols = -1)
+    cmp r9d, -1
+    je movimiento_valido
+    jmp movimiento_invalido
+
+verificar_movimiento_normal:
     ; los soldados deben avanzar una fila hacia adelante (r8d = 1)
     cmp r8d, 1
     jne movimiento_invalido
@@ -133,7 +176,6 @@ calcular_abs_fila_simple:
     jge calcular_abs_col_simple
     neg r11d                         ; r11d = abs(dif columnas)
 calcular_abs_col_simple:
-
     ; Verificar si es movimiento de una sola casilla
     cmp r10d, 1
     jg verificar_captura
@@ -173,7 +215,8 @@ verificar_condicion_horizontal:
     jmp verificar_condicion_diagonal
 
 verificar_condicion_diagonal:
-    ; 3: abs(diferencia fila) == 2 y abs(diferencia columna) ==2   cmp r10d, 2
+    ; 3: abs(diferencia fila) == 2 y abs(diferencia columna) ==2  
+    cmp r10d, 2
     jne movimiento_invalido
     cmp r11d, 2
     je realizar_captura

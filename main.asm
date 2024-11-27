@@ -3,6 +3,7 @@
 %include "constantes.asm"
 
 global main
+global juego_loop
 extern printf, getchar, puts
 extern inicializar_tablero, transponer, espejoX, imprimir_tablero
 extern tablero, user_option
@@ -14,12 +15,15 @@ extern switch_turno
 extern validar_movimiento 
 extern ejecutar_movimiento
 extern contar_jugadores
+extern menu
 
 section .text
 
 main:
     push rbx
     push r12        
+
+    call menu
 
     call inicializar_tablero
 
