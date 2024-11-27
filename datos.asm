@@ -11,6 +11,8 @@ section .data
     encabezado_y      db 'y', 10, 0
     salto_linea       db 10, 0
 
+    rotacion_tablero db 0
+
     mensaje_pos_inicio_fila   db 'Ingrese la fila de inicio (0-6) o g para guardar la partida: ', 0
     mensaje_pos_inicio_col    db 'Ingrese la columna de inicio (0-6): ', 0
     mensaje_pos_fin_fila      db 'Ingrese la fila de destino (0-6): ', 0
