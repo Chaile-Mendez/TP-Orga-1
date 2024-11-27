@@ -11,7 +11,7 @@ section .data
     encabezado_y      db 'y', 10, 0
     salto_linea       db 10, 0
 
-    mensaje_pos_inicio_fila   db 'Ingrese la fila de inicio (0-6): ', 0
+    mensaje_pos_inicio_fila   db 'Ingrese la fila de inicio (0-6) o g para guardar la partida: ', 0
     mensaje_pos_inicio_col    db 'Ingrese la columna de inicio (0-6): ', 0
     mensaje_pos_fin_fila      db 'Ingrese la fila de destino (0-6): ', 0
     mensaje_pos_fin_col       db 'Ingrese la columna de destino (0-6): ', 0
@@ -28,6 +28,8 @@ section .data
     mensaje_fin_juego db '¡Felicidades! Has ganado el juego.', 10, 0
 
     mensaje_contar_fichas db "Oficiales: %i, Soldados: %i",10,0
+
+    nombre_archivo  db 'partida_guardada.txt',0
 
 section .bss
     ; espacio del tablero (7x7)
@@ -47,6 +49,8 @@ section .bss
 
     cantidad_soldados resb 1
     cantidad_oficiales resb 1
+
+    id_archivo  resq 1
 
 ;variables globales
 global tablero
@@ -82,3 +86,7 @@ global turno_actual
 
 ;variable global para mensaje_fin_juego
 global mensaje_fin_juego
+
+;variables globales para guardar y cargar
+global id_archivo
+global nombre_archivo

@@ -4,6 +4,7 @@
 
 global menu
 extern printf, gets, puts
+extern cargar_partida
 
 
 section .data
@@ -14,11 +15,14 @@ section .data
     mensaje_opcion_2    db  'cargar - Carga una partida guardada previamente', 0
     mensaje_opcion_3    db  'salir - Salir del programa', 0
     mensaje_accion_invalida db  'Ingrese una accion valida:', 0
-    accion              resb    100
+
     accion1             db  'nueva', 0
     accion2             db  'cargar', 0
     accion3             db  'salir', 0
 
+
+section .bss
+    accion              resb    100
 
 section .text
 
@@ -51,7 +55,7 @@ leer_accion:
     cmp eax,[accion1]
     je nuevo_juego
     cmp eax,[accion2]
-    je cerrar_programa
+    je cargar_partida
     cmp eax,[accion3]
     je cerrar_programa
 

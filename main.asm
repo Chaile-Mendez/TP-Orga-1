@@ -3,6 +3,7 @@
 %include "constantes.asm"
 
 global main
+global juego_loop
 extern printf, getchar, puts
 extern inicializar_tablero, transponer, espejoX, imprimir_tablero
 extern tablero, user_option
