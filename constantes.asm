@@ -7,3 +7,4 @@
 %define PARED    ' '
 %define SOLDADO  'X'
 %define OFICIAL  'O'
+%define movimientos_puede_capturar_tamanio 16

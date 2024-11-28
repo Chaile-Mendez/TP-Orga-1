@@ -28,6 +28,14 @@ section .data
     mensaje_fin_juego db '¡Felicidades! Has ganado el juego.', 10, 0
 
     mensaje_contar_fichas db "Oficiales: %i, Soldados: %i",10,0
+    movimientos_puede_capturar db -2,  0   ; arriba
+                                db  2,  0   ; bbajo
+                                db  0, -2   ; izq
+                                db  0,  2   ; der
+                                db -2, -2   ; diagonal arriba-izq
+                                db -2,  2   ; diagonal arriba-der
+                                db  2, -2   ; diagonal abajo-izq
+                                db  2,  2   ; diagonal abajo-der
 
 section .bss
     ; espacio del tablero (7x7)
@@ -56,7 +64,7 @@ global menu_prompt, invalid_option, encabezado_x, encabezado_y, salto_linea
 global user_option
 global cantidad_oficiales
 global cantidad_soldados
-
+global movimientos_puede_capturar
 
 ;varibales globales para contar_jugadores.asm
 global mensaje_contar_fichas
