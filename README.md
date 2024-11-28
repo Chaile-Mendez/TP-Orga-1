@@ -14,4 +14,5 @@ nasm -f elf64 menu.asm -o menu.o;
 nasm -f elf64 guardado.asm -o guardado.o;
 nasm -f elf64 cargar.asm -o cargar.o
 nasm -f elf64 transformar_coordenadas.asm -o transformar_coordenadas.o
-ld main.o input.o validacion_movimiento.o ejecucion_movimiento.o funciones_auxiliares.o transformar_coordenadas.o turno.o tablero.o imprimir.o constantes.o datos.o transformaciones.o contar_jugadores.o menu.o guardado.o cargar.o -o juego -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
+nasm -f elf64 personalizar.asm -o personalizar.o
+ld main.o input.o validacion_movimiento.o personalizar.o ejecucion_movimiento.o funciones_auxiliares.o transformar_coordenadas.o turno.o tablero.o imprimir.o constantes.o datos.o transformaciones.o contar_jugadores.o menu.o guardado.o cargar.o -o juego -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2

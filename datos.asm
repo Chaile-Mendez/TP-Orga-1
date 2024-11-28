@@ -11,6 +11,9 @@ section .data
     encabezado_y      db 'y', 10, 0
     salto_linea       db 10, 0
 
+    OFICIAL db DEFAULT_OFICIAL
+    SOLDADO db DEFAULT_SOLDADO
+
     rotacion_tablero db 0
 
     mensaje_pos_inicio_fila   db 'Ingrese la fila de inicio (0-6) o g para guardar la partida: ', 0
@@ -62,6 +65,9 @@ global menu_prompt, invalid_option, encabezado_x, encabezado_y, salto_linea
 global user_option
 global cantidad_oficiales
 global cantidad_soldados
+global rotacion_tablero
+global OFICIAL
+global SOLDADO
 
 
 ;varibales globales para contar_jugadores.asm

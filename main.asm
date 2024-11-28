@@ -17,6 +17,7 @@ extern ejecutar_movimiento
 extern contar_jugadores
 extern menu
 
+
 section .text
 
 main:

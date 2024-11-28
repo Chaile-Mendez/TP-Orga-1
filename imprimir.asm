@@ -8,7 +8,8 @@ extern tablero
 extern formato_numero, formato_caracter
 extern encabezado_x, encabezado_y, salto_linea
 extern printf, puts
-
+extern SOLDADO
+extern OFICIAL
 section .text
 
 imprimir_tablero:

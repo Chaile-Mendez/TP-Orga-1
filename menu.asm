@@ -5,6 +5,7 @@
 global menu
 extern printf, gets, puts
 extern cargar_partida
+extern personalizar
 
 
 section .data
@@ -70,6 +71,8 @@ accion_invalida:
 nuevo_juego:
     pop r12
     pop rbx
+    call personalizar
+
     ret
 
 cerrar_programa:

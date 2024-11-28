@@ -5,7 +5,7 @@
 extern tablero
 extern inicio_fila, inicio_col, fin_fila, fin_col
 extern turno_actual
-
+extern OFICIAL
 global ejecutar_movimiento
 
 section .text
@@ -40,7 +40,7 @@ ejecutar_movimiento:
     mov byte [tablero + rbx], VACIO
 
     ;si es un oficial, verificar si se debe capturar una pieza
-    cmp al, OFICIAL
+    cmp al, [OFICIAL]
     jne fin_mov
 
     ;calcular la diferencia de filas y columnas con signos

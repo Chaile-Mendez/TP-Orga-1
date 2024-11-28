@@ -4,7 +4,8 @@
 
 global inicializar_tablero
 extern tablero
-
+extern SOLDADO
+extern OFICIAL
 section .text
 
 inicializar_tablero:
@@ -44,7 +45,8 @@ cargar_soldados_superior_col:
     add rax, r12
 
     ; asignar soldado
-    mov byte [tablero + rax], SOLDADO
+    mov r15b, [SOLDADO]
+    mov byte [tablero + rax], r15b
 
     inc r12
     jmp cargar_soldados_superior_col
@@ -73,7 +75,8 @@ cargar_soldados_izquierda_col:
     add rax, r12
 
     ; Asignar soldado
-    mov byte [tablero + rax], SOLDADO
+    mov r15b, [SOLDADO]
+    mov byte [tablero + rax], r15b
 
     inc r12
     jmp cargar_soldados_izquierda_col
@@ -101,7 +104,8 @@ cargar_soldados_derecha_col:
     add rax, r12
 
     ; Asignar soldado
-    mov byte [tablero + rax], SOLDADO
+    mov r15b, [SOLDADO]
+    mov byte [tablero + rax], r15b
 
     inc r12
     jmp cargar_soldados_derecha_col
@@ -145,13 +149,15 @@ fin_cargar_vacios_inferior:
     mov rax, 5
     imul rax, ANCHO
     add rax, 4
-    mov byte [tablero + rax], OFICIAL
+    mov r15b, [OFICIAL]
+    mov byte [tablero + rax], r15b
 
     ; Oficial en (6,2)
     mov rax, 6
     imul rax, ANCHO
     add rax, 2
-    mov byte [tablero + rax], OFICIAL
+    mov r15b, [OFICIAL]
+    mov byte [tablero + rax], r15b
 
     ; recuperar registros 
     pop r12
