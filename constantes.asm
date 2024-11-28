@@ -5,5 +5,6 @@
 
 %define VACIO    '.'
 %define PARED    ' '
-%define SOLDADO  'X'
-%define OFICIAL  'O'
+%define DEFAULT_SOLDADO  'X'
+%define DEFAULT_OFICIAL  'O'
+

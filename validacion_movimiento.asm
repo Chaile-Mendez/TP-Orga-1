@@ -6,6 +6,8 @@ extern tablero
 extern turno_actual
 extern inicio_fila, inicio_col, fin_fila, fin_col
 extern puts
+extern SOLDADO
+extern OFICIAL
 
 global validar_movimiento
 
@@ -45,7 +47,7 @@ validar_movimiento:
     je verificar_oficial
 
 verificar_soldado:
-    cmp al, SOLDADO
+    cmp al, [SOLDADO]
     je verificar_destino
     lea rdi, [rel formato_error_ficha_incorrecta]
     xor rax, rax
@@ -53,7 +55,7 @@ verificar_soldado:
     jmp retornar_falso
 
 verificar_oficial:
-    cmp al, OFICIAL
+    cmp al, [OFICIAL]
     je verificar_destino
     lea rdi, [rel formato_error_ficha_incorrecta]
     xor rax, rax
@@ -71,9 +73,9 @@ verificar_destino:
 
     ; verificar que el movimiento es válido según el tipo de ficha
     mov dl, [turno_actual]
-    cmp dl, 'S'
+    cmp dl, [SOLDADO]
     je validar_movimiento_soldado
-    cmp dl, 'O'
+    cmp dl, [OFICIAL]
     je validar_movimiento_oficial
 
     ; Si turno_actual no es 'S' ni 'O', invalidar
@@ -242,7 +244,7 @@ realizar_captura:
     call calcular_indice               ; calcula el índice de [fila][col]
 
     mov al, [tablero + rax]            ;agarra la pieza en la posición intermedia
-    cmp al, SOLDADO                    ;verifica si es un soldado
+    cmp al, [SOLDADO]                    ;verifica si es un soldado
     jne movimiento_invalido            ;si no es un soldado, es inválido
 
     jmp movimiento_valido

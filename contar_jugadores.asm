@@ -8,7 +8,8 @@ extern mensaje_contar_fichas
 extern cantidad_oficiales
 extern cantidad_soldados
 extern tablero
-
+extern SOLDADO
+extern OFICIAL
 
 section .text
 

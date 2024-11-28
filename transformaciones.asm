@@ -4,7 +4,8 @@
 
 global transponer, espejoX
 extern tablero, aux
-
+extern SOLDADO
+extern OFICIAL
 section .text
 
 transponer:
