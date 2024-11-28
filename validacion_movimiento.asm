@@ -8,6 +8,7 @@ extern inicio_fila, inicio_col, fin_fila, fin_col
 extern puts
 extern SOLDADO
 extern OFICIAL
+extern puts
 
 global validar_movimiento
 
@@ -16,6 +17,7 @@ section .data
     formato_error_ficha_incorrecta db 'No hay una ficha válida en la posición de inicio.', 10, 0
     formato_error_posicion db 'La posición seleccionada es una pared. Intente nuevamente.', 10, 0
     formato_error_destino_ocupado db 'La posición de destino está ocupada. Intente nuevamente.', 10, 0
+    print db 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',0
 
 section .text
 
@@ -73,11 +75,12 @@ verificar_destino:
 
     ; verificar que el movimiento es válido según el tipo de ficha
     mov dl, [turno_actual]
-    cmp dl, [SOLDADO]
+    cmp dl, 'S'
     je validar_movimiento_soldado
-    cmp dl, [OFICIAL]
+    cmp dl, 'O'
     je validar_movimiento_oficial
-
+    mov     rdi,SOLDADO
+    call puts
     ; Si turno_actual no es 'S' ni 'O', invalidar
     jmp movimiento_invalido
 
