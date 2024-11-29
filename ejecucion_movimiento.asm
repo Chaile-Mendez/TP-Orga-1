@@ -6,6 +6,8 @@ extern tablero
 extern inicio_fila, inicio_col, fin_fila, fin_col
 extern turno_actual
 extern OFICIAL
+extern bool_captura
+extern datos_oficial1, datos_oficial2
 global ejecutar_movimiento
 
 section .text
@@ -43,6 +45,21 @@ ejecutar_movimiento:
     cmp al, [OFICIAL]
     jne fin_mov
 
+    ;actualizo datos de oficial si se trata de uno
+actualizar_oficiales:
+    mov al,[inicio_fila]
+    mov ah,[inicio_col]
+    mov cl,[fin_fila]
+    mov ch,[fin_col]
+    cmp ax,word[datos_oficial1]
+    je actualizar_oficial1
+    mov word[datos_oficial2],cx
+    jmp calcular_diferencias
+actualizar_oficial1:
+    mov word[datos_oficial1],cx
+
+
+calcular_diferencias:
     ;calcular la diferencia de filas y columnas con signos
     movzx rax, byte [fin_fila]
     movzx rcx, byte [inicio_fila]
@@ -112,6 +129,7 @@ realizar_captura:
     call calcular_indice
     ; eliminar la pieza capturada
     mov byte [tablero + rax], VACIO
+    mov byte[bool_captura], 1
 
     jmp fin_mov
 

@@ -9,6 +9,7 @@ extern tablero
 extern turno_actual
 extern juego_loop
 extern menu
+extern datos_oficial1, datos_oficial2
 
 section .data
     modo_r      db  'r', 0
@@ -43,6 +44,16 @@ cargar_archivo:
     mov rcx,[id_archivo]
     call fread
 
+    mov rdi,datos_oficial1
+    mov rsi,2
+    mov rdx,10
+    mov rcx,[id_archivo]
+    call fread
+    mov rdi,datos_oficial2
+    mov rsi,2
+    mov rdx,10
+    mov rcx,[id_archivo]
+    call fread
 
     sub     rsp,8
     mov rdi,[id_archivo]

@@ -6,6 +6,7 @@ global inicializar_tablero
 extern tablero
 extern SOLDADO
 extern OFICIAL
+extern datos_oficial1, datos_oficial2
 section .text
 
 inicializar_tablero:
@@ -151,6 +152,9 @@ fin_cargar_vacios_inferior:
     add rax, 4
     mov r15b, [OFICIAL]
     mov byte [tablero + rax], r15b
+    mov byte[datos_oficial1],5
+    mov byte[datos_oficial1 + 1],4
+
 
     ; Oficial en (6,2)
     mov rax, 6
@@ -158,6 +162,9 @@ fin_cargar_vacios_inferior:
     add rax, 2
     mov r15b, [OFICIAL]
     mov byte [tablero + rax], r15b
+    mov byte[datos_oficial2],6
+    mov byte[datos_oficial2 + 1],2
+
 
     ; recuperar registros 
     pop r12

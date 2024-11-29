@@ -17,7 +17,6 @@ section .data
     formato_error_ficha_incorrecta db 'No hay una ficha válida en la posición de inicio.', 10, 0
     formato_error_posicion db 'La posición seleccionada es una pared. Intente nuevamente.', 10, 0
     formato_error_destino_ocupado db 'La posición de destino está ocupada. Intente nuevamente.', 10, 0
-    print db 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',0
 
 section .text
 
