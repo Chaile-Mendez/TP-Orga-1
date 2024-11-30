@@ -9,6 +9,8 @@ extern tablero
 extern turno_actual
 extern juego_loop
 extern getchar
+extern datos_oficial1
+extern datos_oficial2
 
 
 
@@ -44,6 +46,18 @@ guardar_archivo:
     mov rdi,turno_actual
     mov rsi,1
     mov rdx,1
+    mov rcx,[id_archivo]
+    call fwrite
+
+;guardo datos de oficiales
+    mov rdi,datos_oficial1
+    mov rsi,2
+    mov rdx,10
+    mov rcx,[id_archivo]
+    call fwrite
+    mov rdi,datos_oficial2
+    mov rsi,2
+    mov rdx,10
     mov rcx,[id_archivo]
     call fwrite
 

@@ -8,6 +8,7 @@ extern inicio_fila, inicio_col, fin_fila, fin_col
 extern puts
 extern SOLDADO
 extern OFICIAL
+extern puts
 
 global validar_movimiento
 
@@ -73,11 +74,12 @@ verificar_destino:
 
     ; verificar que el movimiento es válido según el tipo de ficha
     mov dl, [turno_actual]
-    cmp dl, [SOLDADO]
+    cmp dl, 'S'
     je validar_movimiento_soldado
-    cmp dl, [OFICIAL]
+    cmp dl, 'O'
     je validar_movimiento_oficial
-
+    mov     rdi,SOLDADO
+    call puts
     ; Si turno_actual no es 'S' ni 'O', invalidar
     jmp movimiento_invalido
 

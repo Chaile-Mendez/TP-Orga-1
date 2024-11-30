@@ -36,6 +36,9 @@ section .data
 
     nombre_archivo  db 'partida_guardada.txt',0
 
+    ;booleano 0 para no se capturoen el turno 1 para si se capturo en el turno
+    bool_captura    db 0
+
 section .bss
     ; espacio del tablero (7x7)
     tablero resb ALTO * ANCHO
@@ -56,6 +59,13 @@ section .bss
     cantidad_oficiales resb 1
 
     id_archivo  resq 1
+
+    ;variables para seguir a cada oficial, la primera word son la posicion en F y C
+    ;los siguientes 8 words son para los movimientos en el siguiente orden:
+    ;N, NE, E, SE, S, SO, O, NO
+    ;y la ultima word es para las capturas
+    datos_oficial1 times 10 resw 1
+    datos_oficial2 times 10 resw 1
 
 ;variables globales
 global tablero
@@ -98,3 +108,8 @@ global mensaje_fin_juego
 ;variables globales para guardar y cargar
 global id_archivo
 global nombre_archivo
+
+global datos_oficial1
+global datos_oficial2
+
+global bool_captura

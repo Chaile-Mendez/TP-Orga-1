@@ -16,6 +16,8 @@ extern validar_movimiento
 extern ejecutar_movimiento
 extern contar_jugadores
 extern menu
+extern bool_captura
+extern remover_oficiales
 
 
 section .text
@@ -44,6 +46,7 @@ main:
 
 ; bucle del juego
 juego_loop:
+    mov byte[bool_captura],0
     call imprimir_tablero
     call contar_jugadores
     ; solicitar movimiento
@@ -62,6 +65,8 @@ juego_loop:
     ; je fin_del_juego
 
     call switch_turno
+    cmp byte[bool_captura],1
+    jne remover_oficiales
 
     jmp juego_loop
 
