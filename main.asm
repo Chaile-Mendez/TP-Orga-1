@@ -4,15 +4,16 @@
 
 global main
 global juego_loop
+
 extern printf, getchar, puts
 extern inicializar_tablero, transponer, espejoX, imprimir_tablero
 extern tablero, user_option
 extern formato_numero, formato_caracter
 extern menu_prompt, invalid_option, encabezado_x, encabezado_y, salto_linea, mensaje_fin_juego
-extern leer_movimiento  
-extern turno_actual      
-extern switch_turno       
-extern validar_movimiento 
+extern leer_movimiento
+extern turno_actual
+extern switch_turno
+extern validar_movimiento
 extern ejecutar_movimiento
 extern contar_jugadores
 extern menu
@@ -61,11 +62,15 @@ juego_loop:
 
     call ejecutar_movimiento
 
+
+    call determinar_fin_juego
+    ;Aca se determina y se escribe porque termina el juego.
+
     ; verificar condiciones de fin de juego 
     ; si no hay mas soldados, o no hay mas oficiales, o los soldados ocuparon fortaleza
-    ; call verificar_fin_juego
-    ; cmp al, 1
-    ; je fin_del_juego
+    ;call verificar_fin_juego
+    ;cmp al, 1
+    ;je fin_del_juego
 
     call switch_turno
     cmp byte[bool_captura],1
@@ -75,17 +80,14 @@ juego_loop:
 
     ret
 
-fin_del_juego:
-    call imprimir_tablero
+;fin_del_juego:
+    ;call imprimir_tablero_rotado
 
     ; mensaje de fin de juego. Aclarar quien ganó
-    lea rdi, [rel mensaje_fin_juego]
-    xor rax, rax
-    call puts
+    ;lea rdi, [rel mensaje_fin_juego]
+    ;xor rax, rax
+    ;call puts
 
-    mov rax, 60     ; syscall exit
-    xor rdi, rdi    ; estado de salida 0
-    syscall
-
-
-
+    ;mov rax, 60     ; syscall exit
+    ;xor rdi, rdi    ; estado de salida 0
+    ;syscall
