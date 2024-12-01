@@ -1,44 +1,44 @@
 ;Transforma coordenadas (i,j) rotandolas X grados, y transforma coordenadas (i,j) rotadas X grados a coordenadas en 0 grados.
+%include "constantes.asm"
+extern inicio_fila
+extern inicio_col
+extern rotacion_tablero
+extern fin_col
+extern fin_fila
 
+global enderezar_coordenadas
 
-;DEJA LA FILA ROTADA EN R8, LA COLUMAN ROTADA EN R9.
-%macro rotar 3 ;FILA, COLUMNA, ROTACION(0,90,180,270)
-    mov r8, %1;FILA
-    mov r9, %2;COLUMNA
-
-    mov r10, 90
-    cmp r10, %3
-    je rotar90
-
-    mov r10, 180
-    cmp r10, %3
-    je rotar180
-
-    mov r10, 270
-    cmp r10, %3
-    je rotar270
-%endmacro
-
-
-;DEJA LA FILA ENDEREZADA EN R8, LA COLUMAN ENDEREZADA EN R9.
-%macro enderezar 3 ;FILA, COLUMNA, ROTACION(0,90,180,270)
-    mov r8, %1;FILA
-    mov r9, %2;COLUMNA
-
-    mov r10, 90
-    cmp r10, %3
+enderezar_coordenadas:
+    ;FILA, COLUMNA, ROTACION(0,90,180,270)
+    
+    
+    movzx r8, byte[inicio_fila];FILA
+    movzx r9, byte[inicio_col];COLUMNA
+    movzx r10, word[rotacion_tablero]
+    
+    movzx r11, byte[fin_fila];FILA
+    movzx r12, byte[fin_col];COLUMNA
+    
+    
+    
+    cmp r10, 90
     je rotar270
 
-    mov r10, 180
-    cmp r10, %3
+    cmp r10, 180
     je rotar180
 
-    mov r10, 270
-    cmp r10, %3
+    cmp r10, 270
     je rotar90
+    
+finalizar:
+    
+    mov [inicio_fila], r8b
+    mov [inicio_col], r9b
+    mov [fin_fila], r11b
+    mov [fin_col], r12b
 
+    mov rax, rcx
     ret
-%endmacro
 
 
 rotar90:
@@ -46,7 +46,12 @@ rotar90:
     mov r8, r9
     mov r9, 6
     sub r9, rax
-    ret
+    
+    mov rax, r12
+    mov r11, r12
+    mov r12, 6
+    sub r12, rax
+    jmp finalizar
 
 rotar180:
     mov rax, r9
@@ -55,11 +60,23 @@ rotar180:
     mov rax, r8
     mov r8, 6
     sub r8, rax
-    ret 
+    
+    mov rax, r12
+    mov r12, 6
+    sub r12, rax
+    mov rax, r11
+    mov r11, 6
+    sub r11, rax
+    jmp finalizar 
 
 rotar270:
     mov rax, r9
     mov r9, r8
     mov r8, 6
     sub r8, rax
-    ret
+    
+    mov rax, r12
+    mov r12, r11
+    mov r11, 6
+    sub r11, rax
+    jmp finalizar

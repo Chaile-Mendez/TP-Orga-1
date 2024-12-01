@@ -18,7 +18,8 @@ extern contar_jugadores
 extern menu
 extern bool_captura
 extern remover_oficiales
-
+extern imprimir_tablero_rotado
+extern enderezar_coordenadas
 
 section .text
 
@@ -47,10 +48,12 @@ main:
 ; bucle del juego
 juego_loop:
     mov byte[bool_captura],0
-    call imprimir_tablero
+    call imprimir_tablero_rotado
     call contar_jugadores
     ; solicitar movimiento
     call leer_movimiento
+    ; Transformar el movimiento ingresado segun rotacion del mapa
+    call enderezar_coordenadas
     ; validar el movimiento
     call validar_movimiento
     cmp al, 1
@@ -66,7 +69,7 @@ juego_loop:
 
     call switch_turno
     cmp byte[bool_captura],1
-    jne remover_oficiales
+    jne remover_oficiales 
 
     jmp juego_loop
 
@@ -83,3 +86,6 @@ fin_del_juego:
     mov rax, 60     ; syscall exit
     xor rdi, rdi    ; estado de salida 0
     syscall
+
+
+

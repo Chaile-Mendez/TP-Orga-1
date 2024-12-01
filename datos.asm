@@ -53,7 +53,7 @@ section .bss
     fin_fila resb 1            ; fila de fin
     fin_col resb 1             ; columna de fin
 
-    turno_actual resb 1         ; 'S' para Soldados, 'O' para Oficiales
+    turno_actual resb 1         ; 'S' para Soldados, 'O' par    a Oficiales
 
     cantidad_soldados resb 1
     cantidad_oficiales resb 1

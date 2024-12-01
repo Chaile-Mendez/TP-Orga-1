@@ -182,5 +182,5 @@ configurar_rotacion:
     jmp configurar_rotacion
 
 setear_rotacion:
-    mov [rotacion_tablero], al
+    mov [rotacion_tablero], ax
     ret
