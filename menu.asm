@@ -3,6 +3,7 @@
 %include "constantes.asm"
 
 global menu
+global cerrar_programa
 extern printf, gets, puts
 extern cargar_partida
 extern personalizar
