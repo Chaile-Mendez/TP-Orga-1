@@ -16,8 +16,8 @@ section .text
 contar_jugadores:
     ;mov rbp, rsp; for correct debugging
     
-    mov r10, OFICIAL
-    mov r11, SOLDADO
+    mov r10b, [OFICIAL]
+    mov r11b, [SOLDADO]
 
     mov rcx, 49
     mov ebx, tablero
@@ -42,7 +42,7 @@ siguiente:
     je contarSoldado
     loop siguiente
 
-final:
+final_conteo:
     mov [cantidad_oficiales], r8b
     mov [cantidad_soldados], r9b
 
@@ -60,13 +60,13 @@ contarOficial:
     add r8, 1
     sub rcx, 1
     cmp rcx, 0
-    je final
+    je final_conteo
     jmp siguiente
     
 contarSoldado:
     add r9, 1
     sub rcx, 1
     cmp rcx, 0
-    je final
+    je final_conteo
     jmp siguiente
 
