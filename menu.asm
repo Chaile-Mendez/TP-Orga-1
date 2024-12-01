@@ -13,13 +13,13 @@ section .data
     
     mensaje_inicio      db  'Bienvenido a El Asalto', 0
     mensaje_solicitar_accion    db  'Ingrese una accion:', 0
-    mensaje_opcion_1    db  'nueva - Iniciar una nueva partida', 0
-    mensaje_opcion_2    db  'cargar - Carga una partida guardada previamente', 0
+    mensaje_opcion_1    db  'crear - Iniciar una nueva partida', 0
+    mensaje_opcion_2    db  'abrir - Carga una partida guardada previamente', 0
     mensaje_opcion_3    db  'salir - Salir del programa', 0
     mensaje_accion_invalida db  'Ingrese una accion valida:', 0
 
-    accion1             db  'nueva', 0
-    accion2             db  'cargar', 0
+    accion1             db  'crear', 0
+    accion2             db  'abrir', 0
     accion3             db  'salir', 0
 
 
@@ -51,14 +51,23 @@ acciones:
     add     rsp,8
 
 leer_accion:
+
+
     mov rdi,accion
     call gets
-    mov rax,[accion]
-    cmp eax,[accion1]
+
+    mov rcx, 4
+    mov rsi, accion
+    mov rdi, accion1
+repe cmpsb
     je nuevo_juego
-    cmp eax,[accion2]
+    mov rsi, accion
+    mov rdi, accion2
+repe cmpsb
     je cargar_partida
-    cmp eax,[accion3]
+    mov rsi, accion
+    mov rdi, accion3
+repe cmpsb
     je cerrar_programa
 
 accion_invalida:

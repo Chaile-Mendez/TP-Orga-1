@@ -7,6 +7,7 @@ extern stdin
 extern rotacion_tablero
 extern OFICIAL
 extern SOLDADO
+extern turno_actual
 
 %include "constantes.asm"
 
@@ -27,10 +28,36 @@ section .data
     mensaje_configurar_rotacion db "Desea cambiar la rotacion del mapa? Puede elegir 0, 90, 180 o 270 grados (S para SI, cualquier otro caracter para NO)",10,0
     mensaje_preguntar_caracter_soldado db "Ingrese un caracter individual que represente al SOLDADO",10,0
     mensaje_preguntar_caracter_oficial db "Ingrese un caracter individual que represente al OFICIAL, debe ser diferente al del SOLDADO",10,0
+    
     mensaje_preguntar_rotacion db "Ingrese el valor de la rotacion del tablero, debe ser 0, 90, 180 o 270",10,0
+
+    mensaje_configurar_turno db "Desea cambiar quien inicia el primer turno? por defecto sera el Soldado",10,0
+    mensaje_preguntar_turno db "Ingrese S si quiere que el Soldado empiece la partida u O si quiere que empiece el Oficial",10,0
 section .text
 personalizar:
-    ;Desea configurar SOLDADO?
+    mov byte[turno_actual], DEFAULT_SOLDADO
+
+    mov byte [respuesta], 'N'
+    sub rsp, 8
+
+    mov rdi, mensaje_configurar_turno
+    call puts
+
+    add rsp, 8
+
+
+    sub rsp, 16
+    ;mov rdi, formato_respuesta
+    ;mov rsi, respuesta
+    ;call scanf
+    mov rdi, respuesta
+    call gets
+    add rsp, 16
+
+    mov al, [respuesta]
+    cmp al, 'S'
+    je configurar_primer_turno
+
 preguntar_configurar_soldado:
     mov byte [respuesta], 'N'
     sub rsp, 8
@@ -40,15 +67,13 @@ preguntar_configurar_soldado:
 
     add rsp, 8
 
-    sub rsp, 16
 
+    sub rsp, 16
     ;mov rdi, formato_respuesta
     ;mov rsi, respuesta
     ;call scanf
     mov rdi, respuesta
     call gets
-
-    ;fgets(buffer, sizeof(buffer), stdin);  // Lee hasta 99 caracteres
     add rsp, 16
 
     mov al, [respuesta]
@@ -184,3 +209,34 @@ configurar_rotacion:
 setear_rotacion:
     mov [rotacion_tablero], ax
     ret
+
+
+configurar_primer_turno:
+    mov byte[respuesta], DEFAULT_SOLDADO
+    sub rsp, 8
+
+    mov rdi, mensaje_preguntar_turno
+    call puts
+    add rsp, 8
+
+    sub rsp, 16
+    mov rdi, respuesta
+    call gets
+
+    add rsp, 16
+
+
+    mov al, [respuesta]
+
+
+    cmp al, 'S'
+    je definir_turno
+
+    cmp al, 'O'
+    je definir_turno
+
+    jmp preguntar_configurar_soldado
+
+definir_turno:
+    mov [turno_actual], al
+    jmp preguntar_configurar_soldado

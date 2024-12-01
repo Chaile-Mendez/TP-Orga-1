@@ -4,7 +4,11 @@ extern printf
 extern tablero
 extern OFICIAL
 
+
+%include "constantes.asm"
+
 global determinar_fin_juego
+
 extern cantidad_soldados
 extern cantidad_oficiales
 extern datos_oficial1
@@ -29,7 +33,8 @@ section .data
 
 
 section .text
-global main
+
+global determinar_fin_juego
 determinar_fin_juego:
     mov rbp, rsp; for correct debugging
     ;write your code here
