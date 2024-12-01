@@ -14,7 +14,7 @@ section .text
 ; entrada:
 ;   rdi: fila
 ;   rsi: columna
-; salida:
+;   salida:
 ;   rax: índice lineal en el tablero
 calcular_indice:
     mov rax, rdi        ; rax = fila
