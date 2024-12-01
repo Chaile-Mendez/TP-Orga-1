@@ -19,6 +19,7 @@ extern menu
 extern bool_captura
 extern remover_oficiales
 extern imprimir_tablero_rotado
+extern enderezar_coordenadas
 
 section .text
 
@@ -51,6 +52,8 @@ juego_loop:
     call contar_jugadores
     ; solicitar movimiento
     call leer_movimiento
+    ; Transformar el movimiento ingresado segun rotacion del mapa
+    call enderezar_coordenadas
     ; validar el movimiento
     call validar_movimiento
     cmp al, 1
