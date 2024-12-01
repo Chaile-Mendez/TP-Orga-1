@@ -62,10 +62,10 @@ section .bss
 
     ;variables para seguir a cada oficial, la primera word son la posicion en F y C
     ;los siguientes 8 words son para los movimientos en el siguiente orden:
-    ;N, NE, E, SE, S, SO, O, NO
+    ;NO, N, NE, O, CENTRO, E, SO, S, SE
     ;y la ultima word es para las capturas
-    datos_oficial1 times 10 resw 1
-    datos_oficial2 times 10 resw 1
+    datos_oficial1 times 11 resw 1
+    datos_oficial2 times 11 resw 1
 
 ;variables globales
 global tablero

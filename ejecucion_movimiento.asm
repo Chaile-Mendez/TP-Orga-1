@@ -45,19 +45,6 @@ ejecutar_movimiento:
     cmp al, [OFICIAL]
     jne fin_mov
 
-    ;actualizo datos de oficial si se trata de uno
-actualizar_oficiales:
-    mov al,[inicio_fila]
-    mov ah,[inicio_col]
-    mov cl,[fin_fila]
-    mov ch,[fin_col]
-    cmp ax,word[datos_oficial1]
-    je actualizar_oficial1
-    mov word[datos_oficial2],cx
-    jmp calcular_diferencias
-actualizar_oficial1:
-    mov word[datos_oficial1],cx
-
 
 calcular_diferencias:
     ;calcular la diferencia de filas y columnas con signos
@@ -82,6 +69,52 @@ fin_calculo_abs_fila:
     test r11, r11
     jge fin_calculo_abs_col
     neg r11
+
+normalizar_fila:
+;si la diferencia de las filas o colmnas es 2 la llevo a 1 manteniendo el signo
+    mov rbx,2
+    mov r14,r10
+    mov r15,r11
+    cmp r14,2
+    jne normalizar_columna
+    mov rax,r8
+    idiv rbx
+    mov r8,rax
+
+normalizar_columna:
+    cmp r15,2
+    jne calcular_direccion
+    mov rax,r9
+    idiv rbx
+    mov r9,rax
+
+calcular_direccion:
+    inc r8
+    inc r9
+    mov rbx,3
+    mov rax,r8
+    imul rbx
+    add rax,r9
+    ;dejo la direccion de movimiento en r8
+    mov rbx,2
+    imul rbx
+    mov r8,rax
+
+;actualizo datos de oficial si se trata de uno
+actualizar_oficiales:
+    mov al,[inicio_fila]
+    mov ah,[inicio_col]
+    mov cl,[fin_fila]
+    mov ch,[fin_col]
+    cmp ax,word[datos_oficial1]
+    je actualizar_oficial1
+    mov word[datos_oficial2],cx
+    inc word[datos_oficial2 + 1 + r8]
+
+    jmp fin_calculo_abs_col
+actualizar_oficial1:
+    mov word[datos_oficial1],cx
+    inc word[datos_oficial2 + 2 + r8]
 
 fin_calculo_abs_col:
     ;revisar si es un movimiento de captura
@@ -131,7 +164,15 @@ realizar_captura:
     mov byte [tablero + rax], VACIO
     mov byte[bool_captura], 1
 
-    jmp fin_mov
+agregar_captura:
+    mov cl,[fin_fila]
+    mov ch,[fin_col]
+    cmp cx,word[datos_oficial1]
+    jne agregar_captura2
+    inc word[datos_oficial1 + 20]
+
+agregar_captura2:
+    inc word[datos_oficial2 + 20]
 
 
 fin_mov:
