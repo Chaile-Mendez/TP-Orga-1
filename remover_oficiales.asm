@@ -23,7 +23,7 @@ section .bss
 section .text
 
 remover_oficiales:
-
+    mov r8,1
 definir_oficial:
 ;defino r8 para luego usar en buscar soldados
     mov r8,1
