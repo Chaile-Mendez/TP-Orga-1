@@ -33,7 +33,7 @@ main:
     call inicializar_tablero
 
     ; inicializo el turno en Soldados
-    mov byte [turno_actual], 'S'   
+    ;mov byte [turno_actual], 'S'   
 
     ; iniciar el bucle del juego
     call juego_loop
