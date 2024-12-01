@@ -21,7 +21,7 @@ extern bool_captura
 extern remover_oficiales
 extern imprimir_tablero_rotado
 extern enderezar_coordenadas
-
+extern determinar_fin_juego
 section .text
 
 main:

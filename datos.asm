@@ -14,7 +14,7 @@ section .data
     OFICIAL db DEFAULT_OFICIAL
     SOLDADO db DEFAULT_SOLDADO
 
-    rotacion_tablero db 0
+    rotacion_tablero dw 0
 
     mensaje_pos_inicio_fila   db 'Ingrese la fila de inicio (0-6) o g para guardar la partida: ', 0
     mensaje_pos_inicio_col    db 'Ingrese la columna de inicio (0-6): ', 0

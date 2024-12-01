@@ -3,6 +3,7 @@ extern tablero
 extern VACIO
 extern OFICIAL
 
+%include "constantes.asm"
 extern cantidad_soldados
 extern cantidad_oficiales
 
@@ -12,8 +13,8 @@ section .data
     mensaje_base_ocupada db "Ganan los soldados, la base de los oficiales fue capturada",10,0
 
 section .text
-global main
-main:
+global determinar_fin_juego
+determinar_fin_juego:
     mov rbp, rsp; for correct debugging
     ;write your code here
     xor rax, rax
@@ -59,7 +60,7 @@ nueva_col:
     add rsi, rcx
     add rsi, 30
     mov al, [tablero + rsi]
-    cmp al, [VACIO]
+    cmp al, VACIO
     je continua
     
     cmp al, [OFICIAL]
@@ -79,3 +80,6 @@ nueva_fila:
     jl nueva_col
     
     jmp caso_fortaleza_ocupada
+
+imprimir_estadisticas:
+    ret

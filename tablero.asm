@@ -155,7 +155,6 @@ fin_cargar_vacios_inferior:
     mov byte[datos_oficial1],5
     mov byte[datos_oficial1 + 1],4
 
-
     ; Oficial en (6,2)
     mov rax, 6
     imul rax, ANCHO
@@ -166,10 +165,8 @@ fin_cargar_vacios_inferior:
     mov byte[datos_oficial2 + 1],2
 
 
-    ; recuperar registros 
+    ; recuperar registros
     pop r12
     pop rbx
 
     ret
-
-    
