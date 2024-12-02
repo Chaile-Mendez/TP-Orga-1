@@ -9,6 +9,7 @@ extern mensaje_pos_inicio_fila, mensaje_pos_inicio_col
 extern mensaje_pos_fin_fila, mensaje_pos_fin_col
 extern turno_actual, inicio_fila, inicio_col, fin_fila, fin_col
 extern guardar_partida
+extern cerrar_programa
 
 global continuar_fin_col
 global leer_movimiento
@@ -47,7 +48,11 @@ solicitar_inicio_fila:
     call getchar
     ; Valido si quiero guardar la partida
     cmp al,'g'
-    je guardar_partida                       
+    je guardar_partida        
+
+    cmp al, 'q'
+    je terminar_partida_manualmente
+
     ; Validar que sea un dígito entre '0' y '6'
     cmp al, '0'
     jb invalid_inicio_fila
@@ -148,3 +153,7 @@ continuar_fin_col:
     pop r12
     pop rbx
     ret
+
+
+terminar_partida_manualmente:
+    jmp cerrar_programa
