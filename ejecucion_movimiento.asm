@@ -67,7 +67,7 @@ calcular_diferencias:
     neg r10 ;calcula complemento a 2 y lo guarda en el mismo
 fin_calculo_abs_fila:
     test r11, r11
-    jge fin_calculo_abs_col
+    jge normalizar_fila
     neg r11
 
 normalizar_fila:
@@ -78,6 +78,7 @@ normalizar_fila:
     cmp r14,2
     jne normalizar_columna
     mov rax,r8
+    cqo
     idiv rbx
     mov r8,rax
 
@@ -85,6 +86,7 @@ normalizar_columna:
     cmp r15,2
     jne calcular_direccion
     mov rax,r9
+    cqo
     idiv rbx
     mov r9,rax
 
@@ -109,12 +111,12 @@ actualizar_oficiales:
     cmp ax,word[datos_oficial1]
     je actualizar_oficial1
     mov word[datos_oficial2],cx
-    inc word[datos_oficial2 + 1 + r8]
+    add word[datos_oficial2 + 2 + r8],1
 
     jmp fin_calculo_abs_col
 actualizar_oficial1:
     mov word[datos_oficial1],cx
-    inc word[datos_oficial2 + 2 + r8]
+    add word[datos_oficial2 + 2 + r8],1
 
 fin_calculo_abs_col:
     ;revisar si es un movimiento de captura
@@ -170,6 +172,7 @@ agregar_captura:
     cmp cx,word[datos_oficial1]
     jne agregar_captura2
     inc word[datos_oficial1 + 20]
+    jmp fin_mov
 
 agregar_captura2:
     inc word[datos_oficial2 + 20]

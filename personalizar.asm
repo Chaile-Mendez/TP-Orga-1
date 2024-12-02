@@ -35,7 +35,7 @@ section .data
     mensaje_preguntar_turno db "Ingrese S si quiere que el Soldado empiece la partida u O si quiere que empiece el Oficial",10,0
 section .text
 personalizar:
-    mov byte[turno_actual], DEFAULT_SOLDADO
+    mov byte[turno_actual], 'S'
 
     mov byte [respuesta], 'N'
     sub rsp, 8

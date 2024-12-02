@@ -50,12 +50,14 @@ main:
 ; bucle del juego
 juego_loop:
     mov byte[bool_captura],0
-    call imprimir_tablero_rotado
+    ;call imprimir_tablero_rotado
+    call imprimir_tablero
     call contar_jugadores
+    call determinar_fin_juego
     ; solicitar movimiento
     call leer_movimiento
     ; Transformar el movimiento ingresado segun rotacion del mapa
-    call enderezar_coordenadas
+    ;call enderezar_coordenadas
     ; validar el movimiento
     call validar_movimiento
     cmp al, 1
@@ -64,7 +66,7 @@ juego_loop:
     call ejecutar_movimiento
 
 
-    call determinar_fin_juego
+
     ;Aca se determina y se escribe porque termina el juego.
 
     ; verificar condiciones de fin de juego 

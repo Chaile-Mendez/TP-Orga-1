@@ -4,9 +4,6 @@ extern printf
 extern tablero
 extern OFICIAL
 
-
-%include "constantes.asm"
-
 global determinar_fin_juego
 
 extern cantidad_soldados
@@ -19,17 +16,17 @@ section .data
     mensaje_pocos_soldados db "Gana los oficiales, no hay suficientes soldados para ocupar la base!",10,0
     mensaje_pocos_oficiales db "Ganan los soldados, no hay oficiales que puedan detener a los soldados!",10,0
     mensaje_base_ocupada db "Ganan los soldados, la base de los oficiales fue capturada",10,0
-    mensaje_mov_oficial_n db "Movimientos hacia el norte: %li",0
-    mensaje_mov_oficial_no db "Movimientos hacia el noroeste: %li",0
-    mensaje_mov_oficial_ne db "Movimientos hacia el noreste: %li",0
-    mensaje_mov_oficial_e db "Movimientos hacia el este: %li",0
-    mensaje_mov_oficial_o db "Movimientos hacia el oeste: %li",0
-    mensaje_mov_oficial_s db "Movimientos hacia el sur: %li",0
-    mensaje_mov_oficial_se db "Movimientos hacia el sureste: %li",0
-    mensaje_mov_oficial_so db "Movimientos hacia el suroeste: %li",0
-    mensaje_capturas_oficial db "Capturas: %li",0
-    mensaje_estadisticas_oficial1 db "Estadisticas Oficial 1:",0
-    mensaje_estadisticas_oficial2 db "Estadisticas Oficial 2:",0
+    mensaje_mov_oficial_n db "Movimientos hacia el norte: %i",10 ,0
+    mensaje_mov_oficial_no db "Movimientos hacia el noroeste: %i",10 ,0
+    mensaje_mov_oficial_ne db "Movimientos hacia el noreste: %i",10 ,0
+    mensaje_mov_oficial_e db "Movimientos hacia el este: %i",10 ,0
+    mensaje_mov_oficial_o db "Movimientos hacia el oeste: %i",10 ,0
+    mensaje_mov_oficial_s db "Movimientos hacia el sur: %i",10 ,0
+    mensaje_mov_oficial_se db "Movimientos hacia el sureste: %i",10 ,0
+    mensaje_mov_oficial_so db "Movimientos hacia el suroeste: %i",10 ,0
+    mensaje_capturas_oficial db "Capturas: %i",10 ,0
+    mensaje_estadisticas_oficial1 db "Estadisticas Oficial 1:",10 ,0
+    mensaje_estadisticas_oficial2 db "Estadisticas Oficial 2:",10 ,0
 
 
 section .text
@@ -103,33 +100,67 @@ nueva_fila:
     jmp caso_fortaleza_ocupada
 
 imprimir_estadisticas:
+    sub rsp,16
     mov rdi,mensaje_estadisticas_oficial1
     call printf
+    add rsp,16
     mov rdi,mensaje_mov_oficial_no
-    mov si,[datos_oficial1 + 2]
+    movzx rsi,word[datos_oficial1 + 2]
     call printf
     mov rdi,mensaje_mov_oficial_n
-    mov si,[datos_oficial1 + 4]
+    movzx rsi,word[datos_oficial1 + 4]
     call printf
     mov rdi,mensaje_mov_oficial_ne
-    mov si,[datos_oficial1 + 6]
+    movzx rsi,word[datos_oficial1 + 6]
     call printf
     mov rdi,mensaje_mov_oficial_o
-    mov si,[datos_oficial1 + 8]
+    movzx rsi,word[datos_oficial1 + 8]
     call printf
     mov rdi,mensaje_mov_oficial_e
-    mov si,[datos_oficial1 + 12]
+    movzx rsi,word[datos_oficial1 + 12]
     call printf
     mov rdi,mensaje_mov_oficial_so
-    mov si,[datos_oficial1 + 14]
+    movzx rsi,word[datos_oficial1 + 14]
     call printf
     mov rdi,mensaje_mov_oficial_s
-    mov si,[datos_oficial1 + 16]
+    movzx rsi,word[datos_oficial1 + 16]
     call printf
     mov rdi,mensaje_mov_oficial_se
-    mov si,[datos_oficial1 + 18]
+    movzx rsi,word[datos_oficial1 + 18]
     call printf
     mov rdi,mensaje_capturas_oficial
-    mov si,[datos_oficial1 + 20]
+    movzx rsi,word[datos_oficial1 + 20]
+    call printf
+
+    mov rdi,mensaje_estadisticas_oficial2
+    call printf
+    add rsp,16
+    mov rdi,mensaje_mov_oficial_no
+    movzx rsi,word[datos_oficial2 + 2]
+    call printf
+    mov rdi,mensaje_mov_oficial_n
+    movzx rsi,word[datos_oficial2 + 4]
+    call printf
+    mov rdi,mensaje_mov_oficial_ne
+    movzx rsi,word[datos_oficial2 + 6]
+    call printf
+    mov rdi,mensaje_mov_oficial_o
+    movzx rsi,word[datos_oficial2 + 8]
+    call printf
+    mov rdi,mensaje_mov_oficial_e
+    movzx rsi,word[datos_oficial2 + 12]
+    call printf
+    mov rdi,mensaje_mov_oficial_so
+    movzx rsi,word[datos_oficial2 + 14]
+    call printf
+    mov rdi,mensaje_mov_oficial_s
+    movzx rsi,word[datos_oficial2 + 16]
+    call printf
+    mov rdi,mensaje_mov_oficial_se
+    movzx rsi,word[datos_oficial2 + 18]
+    call printf
+    mov rdi,mensaje_capturas_oficial
+    movzx rsi,word[datos_oficial2 + 20]
+    call printf
 
     jmp cerrar_programa
