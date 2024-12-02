@@ -116,7 +116,7 @@ actualizar_oficiales:
     jmp fin_calculo_abs_col
 actualizar_oficial1:
     mov word[datos_oficial1],cx
-    add word[datos_oficial2 + 2 + r8],1
+    add word[datos_oficial1 + 2 + r8],1
 
 fin_calculo_abs_col:
     ;revisar si es un movimiento de captura
