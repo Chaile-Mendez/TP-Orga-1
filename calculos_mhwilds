@@ -1,0 +1,267 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPya0HgyuAE/vZ0hfidsPJY",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Chaile-Mendez/TP-Orga-1/blob/master/calculos_mhwilds\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 6,
+      "metadata": {
+        "id": "Em5pG0UiqdFv"
+      },
+      "outputs": [],
+      "source": [
+        "import numpy as np\n",
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "from enum import Enum"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "zoh_shia_head_elemental = 30\n",
+        "zoh_shia_head_shots = 65"
+      ],
+      "metadata": {
+        "id": "Mz7v98jPg5xi"
+      },
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def get_critical_multiplier_dps(critical_chance, adicional_critical_damage):\n",
+        "    non_critical = (1 - (critical_chance/100))\n",
+        "    critical = (critical_chance/100) * (1.25 + (adicional_critical_damage / 100))\n",
+        "    return non_critical + critical\n",
+        "\n",
+        "def get_elemental_critical_multiplier_dps(critical_chance, adicional_critical_damage):\n",
+        "    non_critical = (1 - (critical_chance/100))\n",
+        "    critical = (critical_chance/100) * (1.25 + (adicional_critical_damage / 100))\n",
+        "    return non_critical + critical\n",
+        "\n",
+        "class Color(Enum):\n",
+        "    White = 1\n",
+        "    Blue = 2\n",
+        "\n",
+        "def get_raw_sharpness_multiplier(sharpness):\n",
+        "  if sharpness == Color.WHITE:\n",
+        "    return 1.32\n",
+        "  if sharpness == Color.BLUE:\n",
+        "    return 1.2\n",
+        "  else:\n",
+        "    return 1\n",
+        "\n",
+        "def get_elemental_sharpness_multiplier(sharpness):\n",
+        "  if sharpness == Color.WHITE:\n",
+        "    return 1.15\n",
+        "  if sharpness == Color.BLUE:\n",
+        "    return 1.063\n",
+        "  else:\n",
+        "    return 1"
+      ],
+      "metadata": {
+        "id": "rtIAA1Ltg3eB"
+      },
+      "execution_count": 8,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class Bow:\n",
+        "  def __init__(self, raw, critical_chance, elemental_damage):\n",
+        "      self.raw = raw\n",
+        "      self.critical_chance = critical_chance\n",
+        "      self.elemental_damage = elemental_damage"
+      ],
+      "metadata": {
+        "id": "LywSvt_1g5L7"
+      },
+      "execution_count": 24,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def get_dps(bow, ad_raw, ad_critical_chance, ad_critical_damage, ad_elemental_damage, ad_elemental_critical_damage):\n",
+        "  raw_dps = get_critical_multiplier_dps(bow.critical_chance + ad_critical_chance, ad_critical_damage) * bow.raw + ad_raw\n",
+        "  elemental_dps = get_elemental_critical_multiplier_dps(bow.critical_chance + ad_critical_chance, ad_elemental_critical_damage) * bow.elemental_damage + ad_elemental_damage\n",
+        "  return raw_dps, elemental_dps"
+      ],
+      "metadata": {
+        "id": "xb471Xcog9V8"
+      },
+      "execution_count": 30,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "RqqmW1SDhIQT",
+        "outputId": "f2abdcf6-4ae7-4d88-927d-6434df0edc84"
+      },
+      "execution_count": 16,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "255.22500000000002\n",
+            "238.62500000000003\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#BUFFS\n",
+        "\n",
+        "def agitator_raw(level):\n",
+        "  if level == 5:\n",
+        "    return 20\n",
+        "  else:\n",
+        "    return 0\n",
+        "\n",
+        "def agitator_crit(level):\n",
+        "  if level == 5:\n",
+        "    return 15\n",
+        "  else:\n",
+        "    return 0\n",
+        "\n",
+        "def antivirus(level):\n",
+        "  if level == 3:\n",
+        "    return 10\n",
+        "  else:\n",
+        "    return 0\n",
+        "\n",
+        "def latent_power(level):\n",
+        "  if level == 3:\n",
+        "    return 30\n",
+        "  else:\n",
+        "    return 0\n",
+        "\n",
+        "def weakness_exploit(level):\n",
+        "  if level == 2:\n",
+        "    return 10\n",
+        "  if level == 3:\n",
+        "    return 15\n",
+        "  else:\n",
+        "    return 0\n",
+        "\n",
+        "def frenzy():\n",
+        "  return 15\n",
+        "\n",
+        "def critical_boost(level):\n",
+        "  if level == 3:\n",
+        "    return 9\n",
+        "  else:\n",
+        "    return 0\n",
+        "\n",
+        "def elemental_attack(level):\n",
+        "  if level == 3:\n",
+        "    return 60 #20% extra\n",
+        "  else:\n",
+        "    return 0\n",
+        "\n",
+        "def critical_element(level):\n",
+        "  if level == 1:\n",
+        "    return 6.25\n",
+        "  else:\n",
+        "    return 98\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "i84YYxgDhyzS"
+      },
+      "execution_count": 22,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#TEST 2\n",
+        "artiana_ideal = Bow(246, 15, 230)\n",
+        "bonus_raw = agitator_raw(5)\n",
+        "bonus_critical = agitator_crit(5) + frenzy() + antivirus(3) + latent_power(3) + weakness_exploit(2)\n",
+        "bonus_elemental = elemental_attack(3)\n",
+        "bonus_critical_element = critical_element(1)\n",
+        "\n",
+        "\n",
+        "dps, dps_elemental = get_dps(bow=artiana_ideal,\n",
+        "                             ad_raw=bonus_raw,\n",
+        "                             ad_critical_chance=bonus_critical,\n",
+        "                             ad_critical_damage=0,\n",
+        "                             ad_elemental_damage=bonus_elemental,\n",
+        "                             ad_elemental_critical_damage=bonus_critical_element)\n",
+        "\n",
+        "\n",
+        "print(\"Daño total: \", artiana_ideal.raw + bonus_raw)\n",
+        "print(\"Daño elemental: \", artiana_ideal.elemental_damage + bonus_elemental)\n",
+        "\n",
+        "print(\"DPS fisico: \",dps)\n",
+        "print(\"DPS elemental: \",dps_elemental)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "INBpssjejydV",
+        "outputId": "99c930f2-b3a3-4482-d69d-1496084534b1"
+      },
+      "execution_count": 33,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Daño total:  266\n",
+            "Daño elemental:  290\n",
+            "DPS fisico:  324.425\n",
+            "DPS elemental:  358.28125\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "x-uPs71BmPhf"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
